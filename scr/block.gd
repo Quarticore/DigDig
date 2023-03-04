@@ -1,7 +1,9 @@
 extends Node
 
+var LAYER = "normal"
 var HEALTH = 2
 var EMPTY = preload("res://tex/mined bg.png")
+var EMPTY_LAVA = preload("res://tex/lavalayerbrokenbg.png")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +20,10 @@ func _process(delta):
 		var sprite = self.get_child(0)
 		
 		if sprite != null:
-			sprite.texture = EMPTY
+			if LAYER == "lava":
+				sprite.texture = EMPTY_LAVA
+			else:
+				sprite.texture = EMPTY
 			sprite.z_index = -1
 		
 	pass

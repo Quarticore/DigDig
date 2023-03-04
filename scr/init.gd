@@ -7,6 +7,9 @@ func _ready():
 	const tnt_script = preload("res://scr/tnt.gd")
 	const stone_script = preload("res://scr/stone.gd")
 	const cloud_script = preload("res://scr/cloud.gd")
+	const lava_script = preload("res://scr/lava.gd")
+	const lava_tex = preload("res://tex/lava.png")
+	const lava_broken_tex = preload("res://tex/lavalayerbrokenbg.png")
 	const stone_tex = preload("res://tex/stone.png")
 	const dirt_tex = preload("res://tex/dirt.png")
 	const grass_tex = preload("res://tex/grassblock.png")
@@ -54,6 +57,8 @@ func _ready():
 			var col = c - (cols / 2)
 			# 1/75 chance to spawn TNT
 			var spawn_tnt = rng.randi_range(0, 50)
+			var lava_layer = rows - r <= 6
+			var empty_layer = rows - r >= 7 and rows - r <= 12
 
 			var tileNode = RigidBody2D.new()
 			var tileSprite = Sprite2D.new()
@@ -68,9 +73,14 @@ func _ready():
 			else:
 				tileSprite.texture = dirt_tex
 				
-			if spawn_tnt == 1 and r > 1:
+			if !lava_layer and !empty_layer and spawn_tnt == 1 and r > 1:
 				tileSprite.texture = tnt_tex
 				tileNode.set_script(tnt_script)
+				
+			# Setup lava
+			if lava_layer:
+				tileSprite.texture = lava_tex
+				tileNode.set_script(lava_script)
 			
 			tileSprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
@@ -88,6 +98,12 @@ func _ready():
 
 			if tileNode.get_script() == null:
 				tileNode.set_script(dirt_script)
+				
+			if empty_layer:
+				#  Kill the layer
+				if "LAYER" in tileNode:
+					tileNode.LAYER = "lava"
+					tileNode.HEALTH = 0
 			
 			tileNode.add_child(tileCol)
 
@@ -96,7 +112,7 @@ func _ready():
 	# After main pass, do rock generation pass
 	for r in rows:
 		for c in cols:
-			if r <= 1:
+			if r <= 1 or rows - r < 13:
 				continue
 			
 			var row = r - (rows / 2)
