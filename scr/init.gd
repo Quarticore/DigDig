@@ -6,6 +6,7 @@ func _ready():
 	const dirt_script = preload("res://scr/block.gd")
 	const tnt_script = preload("res://scr/tnt.gd")
 	const stone_script = preload("res://scr/stone.gd")
+	const cloud_script = preload("res://scr/cloud.gd")
 	const stone_tex = preload("res://tex/stone.png")
 	const dirt_tex = preload("res://tex/dirt.png")
 	const grass_tex = preload("res://tex/grassblock.png")
@@ -46,7 +47,6 @@ func _ready():
 			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			world.add_child(sprite)
 		
-	
 	# Create a bunch of tileNodes
 	for r in rows:
 		for c in cols:
@@ -116,6 +116,10 @@ func _ready():
 			for n in neighbors:
 				var x = c + n[0]
 				var y = r + n[1]
+				
+				if x < 0 or y < 0:
+					continue
+				
 				var block = get_node("/root/Node2D/SubViewportContainer/SubViewport/Dirt" + str(x) + "-" + str(y))
 				
 				if block == null:
@@ -126,6 +130,28 @@ func _ready():
 				sprite.texture = stone_tex
 				block.set_script(stone_script)
 
+	# Create clouds :)
+	for i in 75:
+		var rand = rng.randi_range(0, 5)
+		
+		if rand != 1:
+			continue
+			
+		var type = rng.randi_range(0, 5)
+		var tex = load("res://tex/clouds" + str(type) + ".png")
+		var x = rng.randi_range(-400, 700)
+		var y = rng.randi_range(-750, -1000)
+		
+		var sprite = Sprite2D.new()
+		sprite.texture = tex
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		sprite.position = Vector2(x, y)
+		sprite.scale = Vector2(tile_scale, tile_scale)
+		
+		sprite.set_script(cloud_script)
+		
+		world.add_child(sprite)
+		
 	
 	print("Genertion finished!")
 	
