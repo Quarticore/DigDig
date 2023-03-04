@@ -36,22 +36,8 @@ func explode():
 		if block.get_child_count() < 2:
 			continue
 		
-		var blk_collide = block.get_child(1)
+		block.HEALTH = 0
 		
-		if blk_collide != null:
-			if block.has_method("explode") and block.HEALTH > 0:
-				print("Exploding block: Dirt" + str(x) + "-" + str(y))
-				block.HEALTH = 0
-				continue
-			
-			blk_collide.queue_free()
-			
-			var blk_sprite = block.get_child(0)
-			
-			if blk_sprite != null:
-				blk_sprite.texture = EMPTY
-				blk_sprite.z_index = -1
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
