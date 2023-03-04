@@ -14,6 +14,9 @@ var DIGGING_LEFT = false
 var RAYCAST = null
 var LAST_MOVED_SIDE = Time.get_unix_time_from_system()
 
+var SCORE = 0
+var INIT_Y = self.position.y
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -131,4 +134,14 @@ func _process(delta):
 	
 	if ANIM != sprite.animation:
 		sprite.animation = ANIM
+		
+	# Set score
+	var score_lbl = get_node("/root/Node2D/UpScore")
+	
+	SCORE = -int((INIT_Y - self.position.y) / 32) - 6
+	
+	if (SCORE < 0):
+		SCORE = 0
+	
+	score_lbl.text = str(SCORE)
 	pass
