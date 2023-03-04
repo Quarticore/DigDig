@@ -82,14 +82,11 @@ func _integrate_forces(s):
 		if cur_time >= LAST_DIG + 0.2 and high_cast.is_colliding():
 			var block = high_cast.get_collider()
 			
-			print(block.HEALTH)
-			
 			block.HEALTH -= 1
 			did_dig = true
 			
 		if cur_time >= LAST_DIG + 0.2 and low_cast.is_colliding():
 			var block = low_cast.get_collider()
-			print(block.HEALTH)
 			
 			block.HEALTH -= 1
 			did_dig = true
@@ -109,14 +106,11 @@ func _integrate_forces(s):
 		if cur_time >= LAST_DIG + 0.2 and high_cast.is_colliding():
 			var block = high_cast.get_collider()
 			
-			print(block.HEALTH)
-			
 			block.HEALTH -= 1
 			did_dig = true
 			
 		if cur_time >= LAST_DIG + 0.2 and low_cast.is_colliding():
 			var block = low_cast.get_collider()
-			print(block.HEALTH)
 			
 			block.HEALTH -= 1
 			did_dig = true

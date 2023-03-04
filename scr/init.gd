@@ -4,10 +4,12 @@ extends Node
 func _ready():
 	var rng = RandomNumberGenerator.new()
 	const dirt_script = preload("res://scr/block.gd")
+	const tnt_script = preload("res://scr/tnt.gd")
 	const dirt_tex = preload("res://tex/dirt.png")
 	const grass_tex = preload("res://tex/grassblock.png")
 	const tuft1 = preload("res://tex/blades.png")
 	const tuft2 = preload("res://tex/blades2.png")
+	const tnt_tex = preload("res://tex/tnt.png")
 	
 	const tilesize = 16
 	const tile_scale = 2
@@ -21,7 +23,7 @@ func _ready():
 	for c in cols:
 		var row = -(rows / 2) - 1
 		var col = c - (cols / 2)
-		var num = rng.randi_range(0, 4)
+		var num = rng.randi_range(0, 3)
 		
 		# Create a sprite node
 		var draw = false
@@ -36,9 +38,9 @@ func _ready():
 			draw = true
 			
 		if draw:
-			print("drawing grass")
 			sprite.position = Vector2(16 * tile_scale * col, 16 * tile_scale * row)
 			sprite.scale = Vector2(tile_scale, tile_scale)
+			sprite.z_index = -1
 			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			world.add_child(sprite)
 		
@@ -48,6 +50,8 @@ func _ready():
 		for c in cols:
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
+			# 1/75 chance to spawn TNT
+			var spawn_tnt = rng.randi_range(0, 75)
 
 			var tileNode = RigidBody2D.new()
 			var tileSprite = Sprite2D.new()
@@ -61,6 +65,10 @@ func _ready():
 				tileSprite.texture = grass_tex
 			else:
 				tileSprite.texture = dirt_tex
+				
+			if spawn_tnt == 1 and r > 1:
+				tileSprite.texture = tnt_tex
+				tileNode.set_script(tnt_script)
 			
 			tileSprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
@@ -76,7 +84,9 @@ func _ready():
 			tileRect.size = Vector2(32, 32)
 			tileCol.shape = tileRect
 
-			tileNode.set_script(dirt_script)
+			if tileNode.get_script() == null:
+				tileNode.set_script(dirt_script)
+			
 			tileNode.add_child(tileCol)
 
 			world.add_child(tileNode)
