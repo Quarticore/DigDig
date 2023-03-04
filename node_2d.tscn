@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=10 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
 [ext_resource type="Script" path="res://scr/left_cam_pos.gd" id="2_d5fdj"]
+[ext_resource type="Texture2D" uid="uid://cu3o64wt0yum0" path="res://tex/sky.png" id="2_i578s"]
 [ext_resource type="Script" path="res://scr/right_cam_pos.gd" id="2_w5l42"]
 [ext_resource type="Script" path="res://scr/right_player.gd" id="3_qg12t"]
 [ext_resource type="SpriteFrames" uid="uid://cfwpc8wgcqecp" path="res://spr_frm/player2.tres" id="4_g8fyb"]
@@ -25,6 +26,13 @@ handle_input_locally = false
 size = Vector2i(512, 800)
 render_target_update_mode = 4
 
+[node name="TextureRect" type="TextureRect" parent="SubViewportContainer/SubViewport"]
+offset_left = -1544.0
+offset_top = -1280.0
+offset_right = 2112.0
+offset_bottom = 2080.0
+texture = ExtResource("2_i578s")
+
 [node name="LeftCam" type="Camera2D" parent="SubViewportContainer/SubViewport"]
 script = ExtResource("2_d5fdj")
 
@@ -47,11 +55,23 @@ autoplay = "default"
 [node name="FloorCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
 target_position = Vector2(0, 48)
 
-[node name="RightCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+[node name="RightCastHigh" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+position = Vector2(0, -16)
 rotation = -1.5708
 target_position = Vector2(-1.04907e-06, 24)
 
-[node name="LeftCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+[node name="RightCastLow" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+position = Vector2(0, 16)
+rotation = -1.5708
+target_position = Vector2(-1.04907e-06, 24)
+
+[node name="LeftCastHigh" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+position = Vector2(0, -16)
+rotation = 1.5708
+target_position = Vector2(1.04907e-06, 24)
+
+[node name="LeftCastLow" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+position = Vector2(0, 16)
 rotation = 1.5708
 target_position = Vector2(1.04907e-06, 24)
 
@@ -73,11 +93,23 @@ autoplay = "default"
 [node name="FloorCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
 target_position = Vector2(0, 48)
 
-[node name="RightCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+[node name="RightCastHigh" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+position = Vector2(0, -16)
 rotation = -1.5708
 target_position = Vector2(-1.04907e-06, 24)
 
-[node name="LeftCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+[node name="RightCastLow" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+position = Vector2(0, 16)
+rotation = -1.5708
+target_position = Vector2(-1.04907e-06, 24)
+
+[node name="LeftCastHigh" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+position = Vector2(0, -16)
+rotation = 1.5708
+target_position = Vector2(1.04907e-06, 24)
+
+[node name="LeftCastLow" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+position = Vector2(0, 16)
 rotation = 1.5708
 target_position = Vector2(1.04907e-06, 24)
 

@@ -44,6 +44,7 @@ func _ready():
 			tileNode.add_child(tileCol)
 
 			world.add_child(tileNode)
+	
 	print("Genertion finished!")
 	
 	get_node("SubViewportContainer2/SubViewport").world_2d = get_node("SubViewportContainer/SubViewport").world_2d
