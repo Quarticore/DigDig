@@ -53,7 +53,7 @@ func _ready():
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
 			# 1/75 chance to spawn TNT
-			var spawn_tnt = rng.randi_range(0, 50)
+			var spawn_tnt = rng.randi_range(0, 40)
 
 			var tileNode = RigidBody2D.new()
 			var tileSprite = Sprite2D.new()
@@ -101,7 +101,7 @@ func _ready():
 			
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
-			var rand = rng.randi_range(0, 75)
+			var rand = rng.randi_range(0, 50)
 			
 			if rand != 1:
 				continue
@@ -140,7 +140,7 @@ func _ready():
 		var type = rng.randi_range(0, 5)
 		var tex = load("res://tex/clouds" + str(type) + ".png")
 		var x = rng.randi_range(-400, 700)
-		var y = rng.randi_range(-750, -1000)
+		var y = rng.randi_range(-700, -950)
 		
 		var sprite = Sprite2D.new()
 		sprite.texture = tex

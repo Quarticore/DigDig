@@ -40,7 +40,8 @@ func explode():
 		
 		if blk_collide != null:
 			if block.has_method("explode") and block.HEALTH > 0:
-				block.explode()
+				print("Exploding block: Dirt" + str(x) + "-" + str(y))
+				block.HEALTH = 0
 				continue
 			
 			blk_collide.queue_free()
@@ -57,6 +58,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if HEALTH <= 0 && self.get_child_count() > 1:
+	if HEALTH <= 0 and self.get_child_count() > 1:
 		explode()
 	pass
