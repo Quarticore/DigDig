@@ -28,7 +28,7 @@ func _integrate_forces(s):
 
 	# Left/right controlling
 	if cur_time >= LAST_MOVED_SIDE + 0.2:
-		if !right_cast_high.is_colliding() and !right_cast_low.is_colliding() and Input.is_action_pressed("move_right", true) and SIDE_CUR < SIDE_MAX:
+		if !right_cast_high.is_colliding() and !right_cast_low.is_colliding() and Input.is_action_pressed("move_right_2", true) and SIDE_CUR < SIDE_MAX:
 			t.origin.x += 32
 			s.set_transform(t)
 			sprite.set_flip_h(false)
@@ -36,7 +36,7 @@ func _integrate_forces(s):
 			LAST_MOVED_SIDE = cur_time
 			SIDE_CUR += 1
 
-		if !left_cast_high.is_colliding() and !left_cast_low.is_colliding() and Input.is_action_pressed("move_left", true) and SIDE_CUR > -SIDE_MAX:
+		if !left_cast_high.is_colliding() and !left_cast_low.is_colliding() and Input.is_action_pressed("move_left_2", true) and SIDE_CUR > -SIDE_MAX:
 			t.origin.x -= 32
 			s.set_transform(t)
 			sprite.set_flip_h(true)
@@ -44,15 +44,15 @@ func _integrate_forces(s):
 			LAST_MOVED_SIDE = cur_time
 			SIDE_CUR -= 1
 	
-	if lv.y == 0 and Input.is_action_pressed("move_up", true):
+	if lv.y == 0 and Input.is_action_pressed("move_up_2", true):
 		lv.y -= 350
 		
-	if lv.y != 0 and Input.is_action_pressed("move_down", true):
+	if lv.y != 0 and Input.is_action_pressed("move_down_2", true):
 		# Activate drilling mode
 		ANIM = "digging"
 		DIGGING = true
 		
-	if !Input.is_action_pressed("move_down", true):
+	if !Input.is_action_pressed("move_down_2", true):
 		ANIM = "default"
 		DIGGING = false
 		
@@ -67,8 +67,8 @@ func _integrate_forces(s):
 			
 			block.HEALTH -= 1
 			
-		# Side digging
-	if right_cast_high.is_colliding() and right_cast_low.is_colliding() and Input.is_action_pressed("move_right", true):
+	# Side digging
+	if !DIGGING and (right_cast_high.is_colliding() or right_cast_low.is_colliding()) and Input.is_action_pressed("move_right_2", true):
 		# Set anim
 		ANIM = "dig_side"
 		sprite.set_flip_h(false)
@@ -95,7 +95,7 @@ func _integrate_forces(s):
 		if did_dig:
 			LAST_DIG = cur_time
 		
-	if left_cast_high.is_colliding() and left_cast_low.is_colliding()  and Input.is_action_pressed("move_left", true):
+	if !DIGGING and (left_cast_high.is_colliding() or left_cast_low.is_colliding()) and Input.is_action_pressed("move_left_2", true):
 		# Set anim
 		ANIM = "dig_side"
 		sprite.set_flip_h(true)

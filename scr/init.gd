@@ -5,6 +5,8 @@ func _ready():
 	var rng = RandomNumberGenerator.new()
 	const dirt_script = preload("res://scr/block.gd")
 	const tnt_script = preload("res://scr/tnt.gd")
+	const stone_script = preload("res://scr/stone.gd")
+	const stone_tex = preload("res://tex/stone.png")
 	const dirt_tex = preload("res://tex/dirt.png")
 	const grass_tex = preload("res://tex/grassblock.png")
 	const tuft1 = preload("res://tex/blades.png")
@@ -90,6 +92,40 @@ func _ready():
 			tileNode.add_child(tileCol)
 
 			world.add_child(tileNode)
+			
+	# After main pass, do rock generation pass
+	for r in rows:
+		for c in cols:
+			if r <= 1:
+				continue
+			
+			var row = r - (rows / 2)
+			var col = c - (cols / 2)
+			var rand = rng.randi_range(0, 75)
+			
+			if rand != 1:
+				continue
+				
+			var block_at = get_node("/root/Node2D/SubViewportContainer/SubViewport/Dirt" + str(col) + "-" + str(row))
+			var neighbors = [
+				[-1,  0],
+				[ 0, -1], [0, 0], [ 0,  1],
+				[ 1,  0],
+			]
+			
+			for n in neighbors:
+				var x = c + n[0]
+				var y = r + n[1]
+				var block = get_node("/root/Node2D/SubViewportContainer/SubViewport/Dirt" + str(x) + "-" + str(y))
+				
+				if block == null:
+					continue
+				
+				var sprite = block.get_child(0)
+				
+				sprite.texture = stone_tex
+				block.set_script(stone_script)
+
 	
 	print("Genertion finished!")
 	
