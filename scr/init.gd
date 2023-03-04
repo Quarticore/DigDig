@@ -53,7 +53,7 @@ func _ready():
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
 			# 1/75 chance to spawn TNT
-			var spawn_tnt = rng.randi_range(0, 40)
+			var spawn_tnt = rng.randi_range(0, 50)
 
 			var tileNode = RigidBody2D.new()
 			var tileSprite = Sprite2D.new()
