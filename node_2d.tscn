@@ -1,40 +1,84 @@
-[gd_scene load_steps=4 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=12 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
-[ext_resource type="Script" path="res://scr/test_control.gd" id="2_qhnfs"]
-[ext_resource type="Texture2D" uid="uid://bk4r0mam4afiq" path="res://tex/dirt.png" id="2_vfkgs"]
+[ext_resource type="Texture2D" uid="uid://bmwftq62auegx" path="res://tex/player1.png" id="3_hmkmo"]
+[ext_resource type="Script" path="res://scr/right_player.gd" id="3_qg12t"]
+[ext_resource type="Texture2D" uid="uid://5vv3j3rxn644" path="res://tex/player1_dig.png" id="4_ojobn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wui60"]
+size = Vector2(32, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jinb4"]
+atlas = ExtResource("3_hmkmo")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssvvx"]
+atlas = ExtResource("3_hmkmo")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vfpto"]
+atlas = ExtResource("4_ojobn")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdidq"]
+atlas = ExtResource("4_ojobn")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1c7ma"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jinb4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssvvx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vfpto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdidq")
+}],
+"loop": true,
+"name": &"digging",
+"speed": 10.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2em4"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_veuvb")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="RightPlayer" type="RigidBody2D" parent="."]
+lock_rotation = true
+script = ExtResource("3_qg12t")
 
-[node name="RightControl" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("2_qhnfs")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightPlayer"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_wui60")
 
-[node name="PlayerRight" type="Sprite2D" parent="RightControl"]
+[node name="RightSprite" type="AnimatedSprite2D" parent="RightPlayer"]
 texture_filter = 1
-position = Vector2(8, 8)
-texture = ExtResource("2_vfkgs")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1c7ma")
+autoplay = "default"
 
-[node name="RightCamera" type="Camera2D" parent="RightControl/PlayerRight"]
-position = Vector2(-8, -8)
+[node name="RightCamera" type="Camera2D" parent="RightPlayer/RightSprite"]
 scale = Vector2(1e-05, 1e-05)
 
-[node name="SubViewport" type="SubViewport" parent="RightControl"]
+[node name="FloorCast" type="RayCast2D" parent="RightPlayer"]
+target_position = Vector2(0, 48)
 
-[node name="LeftControl" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="LeftSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_f2em4")
+autoplay = "default"
 
-[node name="PlayerLeft" type="Sprite2D" parent="LeftControl"]
-
-[node name="LeftCamera" type="Camera2D" parent="LeftControl/PlayerLeft"]
+[node name="LeftCamera" type="Camera2D" parent="LeftSprite"]
 visible = false
 position = Vector2(1736, 328)

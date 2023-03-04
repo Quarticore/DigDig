@@ -10,29 +10,38 @@ func _ready():
 	var rows = 30
 	var cols = 20
 	
-	var right_spawn = 0 - (rows / 2)
-	var left_spawn = rows - (rows / 2)
-	
 	# Create a bunch of tileNodes
 	for r in rows:
 		for c in cols:
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
-			var tileNode = Sprite2D.new()
+			
+			var tileNode = RigidBody2D.new()
+			var tileSprite = Sprite2D.new()
 			var position = Vector2(16 * tile_scale * col, 16 * tile_scale * row)
 			
-			tileNode.scale = Vector2(tile_scale, tile_scale)
 			tileNode.set_position(position)
-			tileNode.texture = dirt_tex
-			tileNode.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			
-			tileNode.add_child(RigidBody2D.new())
+			tileSprite.scale = Vector2(tile_scale, tile_scale)
+			tileSprite.texture = dirt_tex
+			tileSprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			
+			tileNode.add_child(tileSprite)
 			tileNode.name = "Dirt" + str(c) + "-" + str(r)
 			
-			add_child(tileNode)
+			tileNode.gravity_scale = 0
+			tileNode.freeze = true
+
+			var tileCol = CollisionShape2D.new()
+			var tileRect = RectangleShape2D.new()
+
+			tileRect.size = Vector2(32, 32)
+			tileCol.shape = tileRect
+
+			tileNode.add_child(tileCol)
 			
-	print_tree()
-	
+			add_child(tileNode)
+	print("Genertion finished!")
 	pass
 
 
