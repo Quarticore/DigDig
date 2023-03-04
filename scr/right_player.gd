@@ -123,6 +123,11 @@ func _integrate_forces(s):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var sprite = get_node("RightSprite")
+	var raycast = get_node("FloorCast")
+	var block = raycast.get_collider()
+	
+	if block and block.has_method("kill"):
+		block.kill(self)
 	
 	if ANIM != sprite.animation:
 		sprite.animation = ANIM
