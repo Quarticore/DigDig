@@ -2,8 +2,13 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	var rng = RandomNumberGenerator.new()
 	const dirt_script = preload("res://scr/block.gd")
 	const dirt_tex = preload("res://tex/dirt.png")
+	const grass_tex = preload("res://tex/grassblock.png")
+	const tuft1 = preload("res://tex/blades.png")
+	const tuft2 = preload("res://tex/blades2.png")
+	
 	const tilesize = 16
 	const tile_scale = 2
 	
@@ -11,6 +16,32 @@ func _ready():
 	const cols = 80
 	
 	var world = $SubViewportContainer/SubViewport
+	
+	# Draw some grass tufts
+	for c in cols:
+		var row = -(rows / 2) - 1
+		var col = c - (cols / 2)
+		var num = rng.randi_range(0, 4)
+		
+		# Create a sprite node
+		var draw = false
+		var sprite = Sprite2D.new()
+		
+		if num == 1:
+			sprite.texture = tuft1
+			draw = true
+			
+		if num == 3:
+			sprite.texture = tuft2
+			draw = true
+			
+		if draw:
+			print("drawing grass")
+			sprite.position = Vector2(16 * tile_scale * col, 16 * tile_scale * row)
+			sprite.scale = Vector2(tile_scale, tile_scale)
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+			world.add_child(sprite)
+		
 	
 	# Create a bunch of tileNodes
 	for r in rows:
@@ -25,7 +56,12 @@ func _ready():
 			tileNode.set_position(position)
 
 			tileSprite.scale = Vector2(tile_scale, tile_scale)
-			tileSprite.texture = dirt_tex
+			
+			if r == 0:
+				tileSprite.texture = grass_tex
+			else:
+				tileSprite.texture = dirt_tex
+			
 			tileSprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
 			tileNode.add_child(tileSprite)
