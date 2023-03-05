@@ -1,6 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=16 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
+[ext_resource type="Texture2D" uid="uid://66tu0v74vqe5" path="res://tex/border1.png" id="2_4kp5t"]
+[ext_resource type="Texture2D" uid="uid://cftbiq7dl34pn" path="res://tex/border2.png" id="2_6ync3"]
 [ext_resource type="Script" path="res://scr/left_cam_pos.gd" id="2_d5fdj"]
 [ext_resource type="FontFile" uid="uid://cx7hbk1y335uv" path="res://font/upheavtt.ttf" id="2_g067l"]
 [ext_resource type="Texture2D" uid="uid://cu3o64wt0yum0" path="res://tex/sky.png" id="2_i578s"]
@@ -22,6 +24,12 @@ font_size = 36
 outline_size = 7
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_5t234"]
+font = ExtResource("2_g067l")
+font_size = 22
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wui60"]
 size = Vector2(32, 56)
 
@@ -29,7 +37,29 @@ size = Vector2(32, 56)
 script = ExtResource("1_veuvb")
 metadata/_edit_horizontal_guides_ = []
 
-[node name="TopWin" type="Label" parent="."]
+[node name="Border2" type="TextureRect" parent="."]
+visible = false
+z_index = 2
+offset_left = 514.0
+offset_top = 383.0
+offset_right = 547.0
+offset_bottom = 810.0
+rotation = 1.5708
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_6ync3")
+stretch_mode = 1
+
+[node name="Border1" type="TextureRect" parent="."]
+z_index = 2
+offset_left = 517.0
+offset_top = 385.0
+offset_right = 551.0
+offset_bottom = 910.0
+rotation = 1.5708
+texture = ExtResource("2_4kp5t")
+expand_mode = 1
+
+[node name="TopText" type="Label" parent="."]
 visible = false
 z_index = 2
 offset_top = 176.0
@@ -39,7 +69,7 @@ text = "P1 WINS!"
 label_settings = SubResource("LabelSettings_a0i1o")
 horizontal_alignment = 1
 
-[node name="BottomWin" type="Label" parent="."]
+[node name="BottomText" type="Label" parent="."]
 visible = false
 z_index = 2
 offset_top = 568.0
@@ -68,6 +98,15 @@ offset_bottom = 440.0
 text = "999
 "
 label_settings = SubResource("LabelSettings_wpxol")
+
+[node name="EscTooltip" type="Label" parent="."]
+z_index = 3
+offset_left = 4.0
+offset_top = 374.0
+offset_right = 345.0
+offset_bottom = 402.0
+text = "Press ESC to Quit"
+label_settings = SubResource("LabelSettings_5t234")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_top = 400.0
