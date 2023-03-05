@@ -1,6 +1,6 @@
 extends Node
 
-var SCROLL_MAX = 300
+var SCROLL_MAX = -1000
 var SCROLL_MIN = 0
 var SCROLL_SW = false
 var SPD = 0.5
@@ -13,12 +13,12 @@ func _ready():
 func _process(delta):
 	# Move right
 	if !SCROLL_SW:
-		if self.position.x >= SCROLL_MAX:
+		if self.position.x <= SCROLL_MAX:
 			SCROLL_SW = !SCROLL_SW
 		
 		self.position.x -= SPD
 	else:
-		if self.position.x <= SCROLL_MIN:
+		if self.position.x >= SCROLL_MIN:
 			SCROLL_SW = !SCROLL_SW
 		
 		self.position.x += SPD

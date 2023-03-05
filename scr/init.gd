@@ -177,4 +177,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	# Boot back to main menu if esc is pressed
+	if Input.is_action_pressed("esc", true):
+		get_tree().change_scene_to_file("res://menu.tscn")
 	pass
