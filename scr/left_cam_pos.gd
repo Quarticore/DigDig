@@ -13,6 +13,6 @@ func _process(delta):
 	var char = get_node("/root/Node2D/SubViewportContainer/SubViewport/LeftPlayer")
 	
 	if !char.DEAD:
-		self.position.y = char.position.y + 200
+		self.position.y = char.position.y - 200
 	
 	pass

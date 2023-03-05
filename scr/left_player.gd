@@ -3,6 +3,8 @@ extends Node
 const JUMP_FORCE = 350
 const DIG_COOLDOWN = 100
 
+var rng = RandomNumberGenerator.new()
+
 var SIDE_MAX = 6
 var SIDE_CUR = 0
 
@@ -15,8 +17,12 @@ var LAST_MOVED_SIDE = Time.get_unix_time_from_system()
 var SCORE = 0
 var INIT_Y = self.position.y
 var DEAD = false
+var DID_ANIM = false
 
 func kill():
+	self.lock_rotation = false
+	self.get_child(0).disabled = true 
+	
 	DEAD = true
 	
 # Called when the node enters the scene tree for the first time.
@@ -34,6 +40,14 @@ func _integrate_forces(s):
 	var t = s.get_transform()
 	
 	if DEAD:
+		if !DID_ANIM:
+			lv.y = -350
+			lv.x = rng.randi_range(200, -200)
+			
+			s.set_linear_velocity(lv)
+			s.set_angular_velocity(8 if lv.x > 0 else -8)
+			
+			DID_ANIM = true
 		return
 
 	# Left/right controlling

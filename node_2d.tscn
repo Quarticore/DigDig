@@ -88,6 +88,8 @@ offset_bottom = 2080.0
 texture = ExtResource("2_i578s")
 
 [node name="LeftCam" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+rotation = 3.14159
+ignore_rotation = false
 script = ExtResource("2_d5fdj")
 
 [node name="RightPlayer" type="RigidBody2D" parent="SubViewportContainer/SubViewport"]
