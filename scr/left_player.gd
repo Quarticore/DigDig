@@ -152,8 +152,10 @@ func _process(delta):
 	
 	if ANIM != sprite.animation:
 		sprite.animation = ANIM
-		
+
 	# Set score
+	if DEAD:
+		return
 	var score_lbl = get_node("/root/Node2D/DownScore")
 	
 	SCORE = -int((INIT_Y - self.position.y) / 32) - 6
