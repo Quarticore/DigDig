@@ -19,6 +19,8 @@ var INIT_Y = self.position.y
 var DEAD = false
 var DID_ANIM = false
 
+var PARTICLES
+
 func kill():
 	self.lock_rotation = false
 	self.get_child(0).disabled = true 
@@ -27,6 +29,7 @@ func kill():
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	PARTICLES = get_child(1).get_child(0)
 	pass # Replace with function body.
 
 func _integrate_forces(s):
@@ -84,12 +87,22 @@ func _integrate_forces(s):
 		var raycast = get_node("FloorCast")
 		
 		if cur_time >= LAST_DIG + 0.2 and raycast.is_colliding():
+			var block = raycast.get_collider()
+			var part_tex = AtlasTexture.new()
+			
+			part_tex.atlas = block.get_child(0).texture
+			part_tex.filter_clip = true
+			part_tex.region = Rect2(Vector2(0, 0), Vector2(8, 8))
+			
+			PARTICLES.texture = part_tex
+			PARTICLES.emitting = true
 			LAST_DIG = cur_time
 			
 			lv.y = -150
-			var block = raycast.get_collider()
 			
 			block.HEALTH -= 1
+	else:
+		PARTICLES.emitting = false
 			
 	# Side digging
 	if !DIGGING and (right_cast_high.is_colliding() or right_cast_low.is_colliding()) and Input.is_action_pressed("move_right_2", true):

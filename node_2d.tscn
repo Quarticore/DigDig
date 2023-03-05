@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=17 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
 [ext_resource type="Texture2D" uid="uid://66tu0v74vqe5" path="res://tex/border1.png" id="2_4kp5t"]
@@ -32,6 +32,17 @@ outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wui60"]
 size = Vector2(32, 56)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wu67n"]
+lifetime_randomness = 0.02
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 130.77
+initial_velocity_max = 215.39
+angular_velocity_min = -10.58
+angular_velocity_max = 145.32
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
 
 [node name="Node2D" type="Node"]
 script = ExtResource("1_veuvb")
@@ -147,6 +158,19 @@ sprite_frames = ExtResource("6_0qobo")
 animation = &"digging"
 autoplay = "default"
 
+[node name="Sparks" type="GPUParticles2D" parent="SubViewportContainer/SubViewport/RightPlayer/RightSprite"]
+z_index = 2
+texture_filter = 1
+position = Vector2(0, 20)
+rotation = -1.5708
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_wu67n")
+lifetime = 0.57
+explosiveness = 0.71
+visibility_rect = Rect2(-1, -1, 2, 2)
+
 [node name="FloorCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
 target_position = Vector2(0, 48)
 
@@ -186,6 +210,19 @@ sprite_frames = ExtResource("4_g8fyb")
 animation = &"dig_side"
 autoplay = "default"
 
+[node name="Sparks" type="GPUParticles2D" parent="SubViewportContainer/SubViewport/LeftPlayer/LeftSprite"]
+z_index = 2
+texture_filter = 1
+position = Vector2(0, 20)
+rotation = -1.5708
+scale = Vector2(0.5, 0.5)
+emitting = false
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_wu67n")
+lifetime = 0.57
+explosiveness = 0.71
+visibility_rect = Rect2(-1, -1, 2, 2)
+
 [node name="FloorCast" type="RayCast2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
 target_position = Vector2(0, 48)
 
@@ -221,3 +258,6 @@ render_target_update_mode = 4
 
 [node name="RightCam" type="Camera2D" parent="SubViewportContainer2/SubViewport"]
 script = ExtResource("2_w5l42")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+autoplay = true

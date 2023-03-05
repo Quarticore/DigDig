@@ -13,13 +13,19 @@ config_version=5
 config/name="Shovel Jam"
 run/main_scene="res://menu.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://icon.png"
 
 [display]
 
 window/size/viewport_width=512
 window/size/viewport_height=800
 window/size/resizable=false
+
+[importer_defaults]
+
+mp3={
+"loop": true
+}
 
 [input]
 
