@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=18 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
 [ext_resource type="Texture2D" uid="uid://66tu0v74vqe5" path="res://tex/border1.png" id="2_4kp5t"]
@@ -11,6 +11,7 @@
 [ext_resource type="SpriteFrames" uid="uid://cfwpc8wgcqecp" path="res://spr_frm/player2.tres" id="4_g8fyb"]
 [ext_resource type="SpriteFrames" uid="uid://bhqotq63r41ji" path="res://spr_frm/player1.tres" id="6_0qobo"]
 [ext_resource type="Script" path="res://scr/left_player.gd" id="6_v8hdd"]
+[ext_resource type="Script" path="res://scr/player_audio.gd" id="9_um3hc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a0i1o"]
 font = ExtResource("2_g067l")
@@ -126,6 +127,8 @@ offset_bottom = 1200.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 handle_input_locally = false
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
 size = Vector2i(512, 800)
 render_target_update_mode = 4
 
@@ -194,6 +197,11 @@ position = Vector2(0, 16)
 rotation = 1.5708
 target_position = Vector2(1.04907e-06, 24)
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="SubViewportContainer/SubViewport/RightPlayer"]
+scale = Vector2(2, 2)
+volume_db = -20.0
+script = ExtResource("9_um3hc")
+
 [node name="LeftPlayer" type="RigidBody2D" parent="SubViewportContainer/SubViewport"]
 position = Vector2(0, -900)
 lock_rotation = true
@@ -246,6 +254,14 @@ position = Vector2(0, 16)
 rotation = 1.5708
 target_position = Vector2(1.04907e-06, 24)
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="SubViewportContainer/SubViewport/LeftPlayer"]
+volume_db = -20.0
+script = ExtResource("9_um3hc")
+
+[node name="WorldAudio" type="AudioStreamPlayer2D" parent="SubViewportContainer/SubViewport"]
+volume_db = -15.0
+script = ExtResource("9_um3hc")
+
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
 offset_top = -400.0
 offset_right = 512.0
@@ -253,6 +269,8 @@ offset_bottom = 400.0
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
 handle_input_locally = false
+audio_listener_enable_2d = true
+audio_listener_enable_3d = true
 size = Vector2i(512, 800)
 render_target_update_mode = 4
 

@@ -3,6 +3,7 @@ extends Node
 var HEALTH = 3
 var EMPTY = preload("res://tex/mined bg.png")
 var rng = RandomNumberGenerator.new()
+var AUDIO
 
 func explode():
 	var collider = self.get_child(1)
@@ -37,9 +38,11 @@ func explode():
 			continue
 		
 		block.HEALTH = 0
-		
+	
+	AUDIO.play_tnt()
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AUDIO = get_node("/root/Node2D/SubViewportContainer/SubViewport/WorldAudio")
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

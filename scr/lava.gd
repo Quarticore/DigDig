@@ -4,6 +4,7 @@ extends Node
 var HEALTH = 99
 var IS_LAVA = true
 var GAME_ENDED_AT = 0
+var AUDIO
 
 func kill(player):
 	player.kill()
@@ -27,9 +28,11 @@ func kill(player):
 	other_player.kill()
 	
 	GAME_ENDED_AT = Time.get_unix_time_from_system()
+	AUDIO.play_victory()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	AUDIO = get_node("/root/Node2D/SubViewportContainer/SubViewport/WorldAudio")
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

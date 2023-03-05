@@ -20,6 +20,7 @@ var DEAD = false
 var DID_ANIM = false
 
 var PARTICLES
+var AUDIO
 
 func kill():
 	self.lock_rotation = false
@@ -30,6 +31,7 @@ func kill():
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	PARTICLES = get_child(1).get_child(0)
+	AUDIO = get_child(-1)
 	pass # Replace with function body.
 
 func _integrate_forces(s):
@@ -56,6 +58,8 @@ func _integrate_forces(s):
 	# Left/right controlling
 	if cur_time >= LAST_MOVED_SIDE + 0.2:
 		if !right_cast_high.is_colliding() and !right_cast_low.is_colliding() and Input.is_action_pressed("move_right_2", true) and SIDE_CUR < SIDE_MAX:
+			AUDIO.play_move()
+			
 			t.origin.x += 32
 			s.set_transform(t)
 			sprite.set_flip_h(false)
@@ -64,6 +68,8 @@ func _integrate_forces(s):
 			SIDE_CUR += 1
 
 		if !left_cast_high.is_colliding() and !left_cast_low.is_colliding() and Input.is_action_pressed("move_left_2", true) and SIDE_CUR > -SIDE_MAX:
+			AUDIO.play_move()
+			
 			t.origin.x -= 32
 			s.set_transform(t)
 			sprite.set_flip_h(true)
@@ -87,6 +93,8 @@ func _integrate_forces(s):
 		var raycast = get_node("FloorCast")
 		
 		if cur_time >= LAST_DIG + 0.2 and raycast.is_colliding():
+			AUDIO.play_hit()
+			
 			var block = raycast.get_collider()
 			var part_tex = AtlasTexture.new()
 			
@@ -126,6 +134,7 @@ func _integrate_forces(s):
 			did_dig = true
 			
 		if did_dig:
+			AUDIO.play_hit()
 			LAST_DIG = cur_time
 		
 	if !DIGGING and (left_cast_high.is_colliding() or left_cast_low.is_colliding()) and Input.is_action_pressed("move_left_2", true):
@@ -150,6 +159,7 @@ func _integrate_forces(s):
 			did_dig = true
 			
 		if did_dig:
+			AUDIO.play_hit()
 			LAST_DIG = cur_time
 		
 	s.set_linear_velocity(lv)
