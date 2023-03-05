@@ -16,6 +16,9 @@ var SCORE = 0
 var INIT_Y = self.position.y
 var DEAD = false
 
+func kill():
+	DEAD = true
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

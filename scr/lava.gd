@@ -5,7 +5,7 @@ var HEALTH = 99
 var IS_LAVA = true
 
 func kill(player):
-	player.DEAD = true
+	player.kill()
 	
 	var top_win = get_node("/root/Node2D/TopWin")
 	var bottom_win = get_node("/root/Node2D/BottomWin")
