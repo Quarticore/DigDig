@@ -117,7 +117,7 @@ func _ready():
 			
 			var row = r - (rows / 2)
 			var col = c - (cols / 2)
-			var rand = rng.randi_range(0, 50)
+			var rand = rng.randi_range(0, 10)
 			
 			if rand != 1:
 				continue

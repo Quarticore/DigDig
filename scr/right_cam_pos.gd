@@ -11,6 +11,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var char = get_node("/root/Node2D/SubViewportContainer/SubViewport/RightPlayer")
-	self.position.y = char.position.y - 200
+	
+	if !char.DEAD:
+		self.position.y = char.position.y - 200
 	
 	pass

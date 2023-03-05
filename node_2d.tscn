@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://clx1ndwrg1g1i"]
+[gd_scene load_steps=13 format=3 uid="uid://clx1ndwrg1g1i"]
 
 [ext_resource type="Script" path="res://scr/init.gd" id="1_veuvb"]
 [ext_resource type="Script" path="res://scr/left_cam_pos.gd" id="2_d5fdj"]
@@ -9,6 +9,12 @@
 [ext_resource type="SpriteFrames" uid="uid://cfwpc8wgcqecp" path="res://spr_frm/player2.tres" id="4_g8fyb"]
 [ext_resource type="SpriteFrames" uid="uid://bhqotq63r41ji" path="res://spr_frm/player1.tres" id="6_0qobo"]
 [ext_resource type="Script" path="res://scr/left_player.gd" id="6_v8hdd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_a0i1o"]
+font = ExtResource("2_g067l")
+font_size = 52
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wpxol"]
 font = ExtResource("2_g067l")
@@ -23,13 +29,34 @@ size = Vector2(32, 56)
 script = ExtResource("1_veuvb")
 metadata/_edit_horizontal_guides_ = []
 
+[node name="TopWin" type="Label" parent="."]
+visible = false
+z_index = 2
+offset_top = 176.0
+offset_right = 512.0
+offset_bottom = 223.0
+text = "P1 WINS!"
+label_settings = SubResource("LabelSettings_a0i1o")
+horizontal_alignment = 1
+
+[node name="BottomWin" type="Label" parent="."]
+visible = false
+z_index = 2
+offset_top = 568.0
+offset_right = 512.0
+offset_bottom = 615.0
+text = "P2 WINS!"
+label_settings = SubResource("LabelSettings_a0i1o")
+horizontal_alignment = 1
+
 [node name="UpScore" type="Label" parent="."]
 z_index = 3
 offset_left = 424.0
 offset_top = 363.0
 offset_right = 512.0
 offset_bottom = 400.0
-text = "120"
+text = "999
+"
 label_settings = SubResource("LabelSettings_wpxol")
 
 [node name="DownScore" type="Label" parent="."]
@@ -38,7 +65,8 @@ offset_left = 424.0
 offset_top = 403.0
 offset_right = 512.0
 offset_bottom = 440.0
-text = "120"
+text = "999
+"
 label_settings = SubResource("LabelSettings_wpxol")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]

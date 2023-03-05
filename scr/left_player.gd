@@ -14,6 +14,7 @@ var LAST_MOVED_SIDE = Time.get_unix_time_from_system()
 
 var SCORE = 0
 var INIT_Y = self.position.y
+var DEAD = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,6 +29,9 @@ func _integrate_forces(s):
 	var left_cast_low = get_node("LeftCastLow")
 	var lv = s.get_linear_velocity()
 	var t = s.get_transform()
+	
+	if DEAD:
+		return
 
 	# Left/right controlling
 	if cur_time >= LAST_MOVED_SIDE + 0.2:
