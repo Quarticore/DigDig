@@ -19,7 +19,7 @@ The code you will be witnessing in this repository is code that I debated on eve
 It is actually the first full game I have ever created in Godot, in fact, it's the first full game I have ever created PERIOD. Hopefully that
 cuts me some slack.
 
-I have decided to release it all despite the fact it looks like it was written by a 14 year old recovering from an aneurism, because I think it is a
+I have decided to release it all despite the fact it looks like it was written by a 14 year old recovering from an aneurysm, because I think it is a
 representation of my first step into game creation, and I hope to look back on this and be able to see a the beginnings of a fruitful journey.
 
 # Opening the project
