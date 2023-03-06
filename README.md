@@ -20,7 +20,7 @@ It is actually the first full game I have ever created in Godot, in fact, it's t
 cuts me some slack.
 
 I have decided to release it all despite the fact it looks like it was written by a 14 year old recovering from an aneurysm, because I think it is a
-representation of my first step into game creation, and I hope to look back on this and be able to see a the beginnings of a fruitful journey.
+representation of my first step into game creation, and I hope to look back on this and be able to see the beginnings of a fruitful journey.
 
 # Opening the project
 
