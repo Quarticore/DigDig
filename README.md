@@ -1,10 +1,12 @@
 <div align="center">
   <img src="https://img.itch.zone/aW1nLzExNDg4NTQ4LnBuZw==/original/KKlZbO.png"/>
+  <br>
+  <i>
+    Dig Deep! Race your friend to the center of the planet in this epic local co-op digging game!
+  </i>
 </div>
 
-<i>
-Dig Deep! Race your friend to the center of the planet in this epic local co-op digging game!
-</i>
+
 
 # Info
 
