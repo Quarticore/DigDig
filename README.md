@@ -8,7 +8,7 @@ Dig Deep! Race your friend to the center of the planet in this epic local co-op 
 
 # Info
 
-DigDig was a game entirely programmed by me, with art and sounds by [86XX](https://twitter.com/DPY40407454).
+DigDig was a game entirely programmed by me, with art and sounds by [89XX](https://twitter.com/DPY40407454).
 It was created in less than two days for the [Mini Jame Gam #15](https://itch.io/jam/mini-jame-gam-15)
 
 # Prepare thyself
